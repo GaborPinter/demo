@@ -1,8 +1,2 @@
-FROM ubuntu:20.04
-
-RUN apt update
-RUN apt install default-jdk -y
-COPY . .
-RUN javac DemoApplication.java
-
-CMD ["java", "DemoApplication"]
+FROM openjdk:8
+EXPOSE 8080
