@@ -7,7 +7,7 @@ pipeline{
         stage('Build Maven'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/GaborPinter/demo']]])
-                bat 'mvn clean install'
+                bat 'gradlew clean build'
             }
         }
         stage('Build docker image'){
