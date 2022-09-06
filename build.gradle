@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '3.0.0-M4'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
-	id 'war'
+	id 'com.palantir.docker' version '0.34.0'
 }
 
 group = 'com.example'
@@ -16,8 +16,14 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+docker{
+    name "app"
+    dockerfile file('src/docker/Dockerfile')
+    copySpec.from(jar).rename(".*","app.jar")
+    buildArgs(['JAR_FILE': "app.jar"])
 }
 
 tasks.named('test') {
